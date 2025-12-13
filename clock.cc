@@ -79,9 +79,9 @@ int main(int argc, char *argv[]) {
   while (running) {
     matrix->Clear();
 
-    const int target_year = 2031
-    const int target_day = 258
-    const int target_hour = 0
+    const int target_year = 2031;
+    const int target_day = 258;
+    const int target_hour = 0;
 
     std::time_t now = std::time(nullptr);
     std::time_t target = MakeTargetTime(target_year, target_day, target_hour);

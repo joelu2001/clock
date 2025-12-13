@@ -1,4 +1,5 @@
 #include <chrono>
+#include <csignal>
 #include <ctime>
 #include <iomanip>
 #include <sstream>
@@ -10,6 +11,9 @@
 using rgb_matrix::RGBMatrix;
 using rgb_matrix::Font;
 using rgb_matrix::Color;
+
+static volatile bool running = true;
+static void InterruptHandler(int) { running = false; }
 
 static std::string NowHHMMSS() {
   std::time_t t = std::time(nullptr);
@@ -23,44 +27,38 @@ static std::string NowHHMMSS() {
 }
 
 int main(int argc, char *argv[]) {
+  std::signal(SIGINT, InterruptHandler);
+  std::signal(SIGTERM, InterruptHandler);
+
   RGBMatrix::Options options;
   rgb_matrix::RuntimeOptions runtime;
 
-  // Match your known-good panel setup
-  options.rows = 32;
-  options.cols = 64;
-  options.chain_length = 1;
-  options.parallel = 1;
-  options.brightness = 60;
-
-  // This matches your working "--led-no-hardware-pulse"
-  runtime.disable_hardware_pulsing = true;
-
-  // Create matrix
-  RGBMatrix *matrix = RGBMatrix::CreateFromOptions(options, runtime);
-  if (!matrix) return 1;
+  // This makes your program understand -D0, --led-no-hardware-pulse, etc.
+  // It also prints helpful usage on invalid flags.
+  RGBMatrix *matrix = RGBMatrix::CreateFromFlags(&argc, &argv, &options, &runtime);
+  if (matrix == nullptr) return 1;
 
   Font font;
-  // Use a font bundled with the repo
   if (!font.LoadFont("fonts/7x13.bdf")) return 2;
 
-  Color white(255, 255, 255);
-  Color black(0, 0, 0);
+  const Color white(255, 255, 255);
+  const Color black(0, 0, 0);
 
-  while (true) {
+  while (running) {
     matrix->Clear();
 
-    std::string t = NowHHMMSS();
+    const std::string t = NowHHMMSS();
 
-    // Draw at a nice spot for 64x32 with 7x13 font
-    int x = 2;
-    int y = 20;  // baseline
+    // y is baseline for the font. 7x13 fits well on 32px height.
+    const int x = 2;
+    const int y = 20;
 
     rgb_matrix::DrawText(matrix, font, x, y, white, &black, t.c_str());
 
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 
+  matrix->Clear();
   delete matrix;
   return 0;
 }

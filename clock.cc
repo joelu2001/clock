@@ -69,6 +69,7 @@ int main(int argc, char *argv[]) {
   // It also prints helpful usage on invalid flags.
   RGBMatrix *matrix = RGBMatrix::CreateFromFlags(&argc, &argv, &options, &runtime);
   if (matrix == nullptr) return 1;
+  rgb_matrix::FrameCanvas *offscreen = matrix->CreateFrameCanvas();
 
   Font font;
   Font small_font;

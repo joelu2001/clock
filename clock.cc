@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
   while (running) {
     offscreen->Clear();
 
-    const int target_year = 2031;
+    const int target_year = 2030;
     const int target_day = 258;
     const int target_hour = 0;
 
@@ -97,8 +97,8 @@ int main(int argc, char *argv[]) {
     oss << days_left;
     const std::string days_text = oss.str();
 
-    rgb_matrix::DrawText(offscreen, small_font, 2, 10, white, nullptr, "Days left");
-    rgb_matrix::DrawText(offscreen, big_font,   2, 30, white, nullptr, days_text.c_str());
+    rgb_matrix::DrawText(offscreen, small_font, 4, 10, white, nullptr, "Days left");
+    rgb_matrix::DrawText(offscreen, big_font,   5, 30, white, nullptr, days_text.c_str());
 
     offscreen = matrix->SwapOnVSync(offscreen);
 

@@ -97,8 +97,8 @@ int main(int argc, char *argv[]) {
     oss << days_left;
     const std::string days_text = oss.str();
 
-    rgb_matrix::DrawText(offscreen, small_font, 4, 10, white, nullptr, "Days left");
-    rgb_matrix::DrawText(offscreen, big_font,   5, 30, white, nullptr, days_text.c_str());
+    rgb_matrix::DrawText(offscreen, small_font, 10, 10, white, nullptr, "Days left");
+    rgb_matrix::DrawText(offscreen, big_font,   10, 30, white, nullptr, days_text.c_str());
 
     offscreen = matrix->SwapOnVSync(offscreen);
 

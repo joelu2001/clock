@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
 
     // rgb_matrix::DrawText(matrix, font, x, y, white, &black, t.c_str());
 
-    // std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 
   matrix->Clear();

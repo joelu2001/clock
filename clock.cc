@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
   const Color black(0, 0, 0);
 
   while (running) {
-    matrix->Clear();
+    offscreen->Clear();
 
     const int target_year = 2031;
     const int target_day = 258;
@@ -96,33 +96,10 @@ int main(int argc, char *argv[]) {
     oss << days_left;
     const std::string days_text = oss.str();
 
-    // Title
-    rgb_matrix::DrawText(
-        matrix,
-        small_font,
-        2, 10,
-        white,
-        nullptr,
-        "Days left"
-    );
+    rgb_matrix::DrawText(offscreen, small_font, 2, 10, white, nullptr, "Days left");
+    rgb_matrix::DrawText(offscreen, big_font,   2, 30, white, nullptr, days_text.c_str());
 
-    // Big number
-    rgb_matrix::DrawText(
-        matrix,
-        big_font,
-        2, 28,
-        white,
-        nullptr,
-        days_text.c_str()
-    );
-
-
-    // y is baseline for the font. 7x13 fits well on 32px height.
-    // const int x = 2;
-    // const int y = 20;
-
-
-    // rgb_matrix::DrawText(matrix, font, x, y, white, &black, t.c_str());
+    offscreen = matrix->SwapOnVSync(offscreen);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }

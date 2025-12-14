@@ -71,7 +71,11 @@ int main(int argc, char *argv[]) {
   if (matrix == nullptr) return 1;
 
   Font font;
+  Font small_font;
+  Font big_font;
   if (!font.LoadFont("fonts/7x13.bdf")) return 2;
+  if (!small_font.LoadFont("fonts/6x10.bdf")) return 3;
+  if (!big_font.LoadFont("fonts/10x20.bdf")) return 4;
 
   const Color white(255, 255, 255);
   const Color black(0, 0, 0);

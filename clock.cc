@@ -110,6 +110,6 @@ int main(int argc, char *argv[]) {
   }
 
   offscreen->Clear();
-  delete offscreen;
+  delete matrix;
   return 0;
 }

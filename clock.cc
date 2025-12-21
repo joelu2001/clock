@@ -100,8 +100,10 @@ int main(int argc, char *argv[]) {
 
     const int x_text = 6;
     const int x_days = 12;
-    rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
-    rgb_matrix::DrawText(offscreen, big_font,   x_days, 30, white, nullptr, days_text.c_str());
+    //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
+    //rgb_matrix::DrawText(offscreen, big_font,   x_days, 30, white, nullptr, days_text.c_str());
+    rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Krya på dig!");
+
 
     offscreen = matrix->SwapOnVSync(offscreen);
 

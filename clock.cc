@@ -83,6 +83,7 @@ int main(int argc, char *argv[]) {
 
   while (running) {
     offscreen->Clear();
+    offscreen->SetBrightness(50);
 
     const int target_year = 2030;
     const int target_day = 258;
@@ -108,7 +109,7 @@ int main(int argc, char *argv[]) {
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 
-  matrix->Clear();
-  delete matrix;
+  offscreen->Clear();
+  delete offscreen;
   return 0;
 }

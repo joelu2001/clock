@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
 
   while (running) {
     offscreen->Clear();
-    offscreen->SetBrightness(20);
+    offscreen->SetBrightness(30);
 
     const int target_year = 2030;
     const int target_day = 258;

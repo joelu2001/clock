@@ -131,8 +131,8 @@ int main(int argc, char *argv[]) {
   const Color green(0, 255, 0);
   const Color blue(0, 0, 255);
 
-  const int x_text = 5;
-  const int y_text = 3;
+  const int x_text = 7;
+  const int y_text = 15;
 
   bool state = false;
   auto last_switch = std::chrono::steady_clock::now();

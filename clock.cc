@@ -230,11 +230,11 @@ int main(int argc, char *argv[]) {
 
     if (state) {
       FillRect(offscreen, red, white);
-      SnowMan(offscreen, 31, 20, 0, white, grey, brown, red, orange);
+      SnowMan(offscreen, 31, 30, 0, white, grey, brown, red, orange);
       //rgb_matrix::DrawText(offscreen, font, x_text, y_text, white, nullptr, "God Jul!");
     } else {
       FillRect(offscreen, white, red);
-      SnowMan(offscreen, 31, 30, 1, white, grey, brown, red, orange);
+      SnowMan(offscreen, 31, 25, 1, white, grey, brown, red, orange);
       //rgb_matrix::DrawText(offscreen, font, x_text, y_text, red, nullptr, "God Jul!");
     }
 

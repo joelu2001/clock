@@ -99,10 +99,10 @@ int main(int argc, char *argv[]) {
 
     if (state) {
       // STATE A
-      FillRect(offscreen, 0, 0, 64, 32, Color(255, 0, 0));
+      rgb_matrix::FillRect(offscreen, 0, 0, 64, 32, Color(255, 0, 0));
     } else {
       // STATE B
-      FillRect(offscreen, 0, 0, 64, 32, Color(0, 0, 255));
+      rgb_matrix::FillRect(offscreen, 0, 0, 64, 32, Color(0, 0, 255));
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);

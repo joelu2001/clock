@@ -99,15 +99,15 @@ void Line(rgb_matrix::FrameCanvas* c,
 
 void FillRect(rgb_matrix::FrameCanvas* c,
               const Color& color_a, const Color& color_b) {
-  Line(c, 0, 0, 63, 0, true, false, color_a, color_b); // top
-  Line(c, 0, 0, 0, 31, true, true, color_a, color_b); // left
+  Line(c, 0, 0, 62, 0, true, false, color_a, color_b); // top
+  Line(c, 0, 1, 0, 30, true, true, color_a, color_b); // left
   Line(c, 0, 31, 63, 31, true, false, color_a, color_b); // bottom
-  Line(c, 63, 0, 63, 31, true, true, color_a, color_b); // right
+  Line(c, 63, 0, 63, 30, true, true, color_a, color_b); // right
 
-  Line(c, 1, 1, 62, 1, true, false, color_a, color_b); // top
-  Line(c, 1, 1, 1, 30, true, true, color_a, color_b); // left
+  Line(c, 1, 1, 61, 1, true, false, color_a, color_b); // top
+  Line(c, 1, 2, 1, 29, true, true, color_a, color_b); // left
   Line(c, 1, 30, 62, 30, true, false, color_a, color_b); // bottom
-  Line(c, 62, 1, 62, 30, true, true, color_a, color_b); // right
+  Line(c, 62, 1, 62, 29, true, true, color_a, color_b); // right
 }
 
 int main(int argc, char *argv[]) {
@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
   const Color green(0, 255, 0);
   const Color blue(0, 0, 255);
 
-  const int x_text = 6;
+  const int x_text = 5;
   const int y_text = 20;
 
   bool state = false;

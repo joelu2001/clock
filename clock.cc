@@ -91,23 +91,22 @@ int main(int argc, char *argv[]) {
     auto now = std::chrono::steady_clock::now();
 
     if (now - last_switch >= std::chrono::seconds(1)) {
-      state = !state;               // toggle
+      state = !state;
       last_switch = now;
     }
 
     offscreen->Clear();
 
     if (state) {
-      // STATE A
-      rgb_matrix::FillRect(offscreen, 0, 0, 64, 32, Color(255, 0, 0));
+      rgb_matrix::DrawBox(offscreen, 0, 0, 63, 31, Color(255, 0, 0));
     } else {
-      // STATE B
-      rgb_matrix::FillRect(offscreen, 0, 0, 64, 32, Color(0, 0, 255));
+      rgb_matrix::DrawBox(offscreen, 0, 0, 63, 31, Color(0, 0, 255));
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
+
 
   offscreen->Clear();
   delete matrix;

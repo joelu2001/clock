@@ -84,29 +84,32 @@ int main(int argc, char *argv[]) {
   const Color green(0, 255, 0);
   const Color blue(0, 0, 255);
 
-  bool state = false;
-  auto last_switch = std::chrono::steady_clock::now();
-
   while (running) {
-    auto now = std::chrono::steady_clock::now();
-
-    if (now - last_switch >= std::chrono::seconds(1)) {
-      state = !state;               // toggle
-      last_switch = now;
-    }
-
     offscreen->Clear();
+    offscreen->SetBrightness(40);
 
-    if (state) {
-      // STATE A
-      FillRect(offscreen, 0, 0, 64, 32, Color(255, 0, 0));
-    } else {
-      // STATE B
-      FillRect(offscreen, 0, 0, 64, 32, Color(0, 0, 255));
-    }
+    const int target_year = 2030;
+    const int target_day = 258;
+    const int target_hour = 0;
+
+    std::time_t now = std::time(nullptr);
+    std::time_t target = MakeTargetTime(target_year, target_day, target_hour);
+
+    long days_left = DaysLeft(now, target);
+
+    std::ostringstream oss;
+    oss << days_left;
+    const std::string days_text = oss.str();
+
+    const int x_text = 6;
+    const int x_days = 12;
+
+    rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
+    rgb_matrix::DrawText(offscreen, big_font,   x_days, 30, white, nullptr, days_text.c_str());
 
     offscreen = matrix->SwapOnVSync(offscreen);
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 
   offscreen->Clear();

@@ -200,14 +200,15 @@ int main(int argc, char *argv[]) {
   if (!small_font.LoadFont("fonts/6x10.bdf")) return 3;
   if (!big_font.LoadFont("fonts/10x20.bdf")) return 4;
 
-  const Color white (255, 255, 255);  
-  const Color black (0,   0,   0);  
-  const Color red   (0,   0,   255);
-  const Color green (0,   255, 0); 
-  const Color blue  (255, 0,   0);   
-  const Color orange(0,   165, 255);
-  const Color grey  (128, 128, 128);   
-  const Color brown (19,  69,  139);
+  const Color white (255, 255, 255);
+  const Color black (0,   0,   0); 
+  const Color red   (255, 0,   0); 
+  const Color green (0,   0,   255);  
+  const Color blue  (0,   255, 0);    
+  const Color orange(255, 0,   165);
+  const Color grey  (128, 128, 128);
+  const Color brown (139, 19,  69);
+
 
   const int x_text = 5;
   const int y_text = 20;

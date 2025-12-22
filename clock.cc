@@ -226,7 +226,7 @@ int main(int argc, char *argv[]) {
     offscreen->Clear();
     offscreen->SetBrightness(30);
 
-    c->SetPixel(10, 10, green.r, green.g, green.b);
+    offscreen->SetPixel(10, 10, green.r, green.g, green.b);
 
     if (state) {
       FillRect(offscreen, red, white);

@@ -99,7 +99,7 @@ void Line(rgb_matrix::FrameCanvas* c,
 
 void FillRect(rgb_matrix::FrameCanvas* c,
               const Color& color_a, const Color& color_b) {
-  Line(c, 0, 0, 63, 0, true, false, color_a, color_b); // top
+  Line(c, 0, 0, 64, 0, true, false, color_a, color_b); // top
   Line(c, 0, 1, 0, 30, true, true, color_a, color_b); // left
   Line(c, 0, 31, 62, 31, true, false, color_b, color_a); // bottom
   Line(c, 63, 1, 63, 31, true, true, color_a, color_b); // right

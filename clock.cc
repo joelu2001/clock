@@ -103,6 +103,11 @@ void FillRect(rgb_matrix::FrameCanvas* c,
   Line(c, 0, 0, 0, 31, true, true, color_a, color_b); // left
   Line(c, 0, 31, 63, 31, true, false, color_a, color_b); // bottom
   Line(c, 63, 0, 63, 31, true, true, color_a, color_b); // right
+
+  Line(c, 1, 1, 62, 1, true, false, color_a, color_b); // top
+  Line(c, 1, 1, 1, 30, true, true, color_a, color_b); // left
+  Line(c, 1, 30, 62, 30, true, false, color_a, color_b); // bottom
+  Line(c, 62, 1, 62, 30, true, true, color_a, color_b); // right
 }
 
 int main(int argc, char *argv[]) {
@@ -131,8 +136,8 @@ int main(int argc, char *argv[]) {
   const Color green(0, 255, 0);
   const Color blue(0, 0, 255);
 
-  const int x_text = 7;
-  const int y_text = 15;
+  const int x_text = 8;
+  const int y_text = 20;
 
   bool state = false;
   auto last_switch = std::chrono::steady_clock::now();

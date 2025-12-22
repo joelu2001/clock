@@ -227,18 +227,14 @@ int main(int argc, char *argv[]) {
     offscreen->Clear();
     offscreen->SetBrightness(30);
 
-    offscreen->SetPixel(10, 10, green.r, green.g, green.b);
-    offscreen->SetPixel(11, 10, red.r, red.g, red.b);
-    offscreen->SetPixel(12, 10, blue.r, blue.g, blue.b);
-
     if (state) {
       FillRect(offscreen, red, white);
       SnowMan(offscreen, 31, 30, 0, white, grey, brown, red, orange);
-      //rgb_matrix::DrawText(offscreen, font, x_text, y_text, white, nullptr, "God Jul!");
+      rgb_matrix::DrawText(offscreen, font, x_text, y_text, white, nullptr, "God Jul!");
     } else {
       FillRect(offscreen, white, red);
       SnowMan(offscreen, 31, 25, 1, white, grey, brown, red, orange);
-      //rgb_matrix::DrawText(offscreen, font, x_text, y_text, red, nullptr, "God Jul!");
+      rgb_matrix::DrawText(offscreen, font, x_text, y_text, red, nullptr, "God Jul!");
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);

@@ -99,7 +99,10 @@ void Line(rgb_matrix::FrameCanvas* c,
 
 void FillRect(rgb_matrix::FrameCanvas* c,
               const Color& color_a, const Color& color_b) {
-  Line(c, 0, 0, 63, 0, true, false, color_a, color_b);
+  Line(c, 0, 0, 63, 0, true, false, color_a, color_b); // top
+  Line(c, 0, 0, 0, 31, true, true, color_a, color_b); // left
+  Line(c, 0, 31, 63, 31, true, false, color_a, color_b); // bottom
+  Line(c, 63, 0, 63, 31, true, true, color_a, color_b); // right
 }
 
 int main(int argc, char *argv[]) {
@@ -143,9 +146,9 @@ int main(int argc, char *argv[]) {
     offscreen->SetBrightness(30);
 
     if (state) {
-      FillRect(offscreen, red, green);
+      FillRect(offscreen, red, white);
     } else {
-      FillRect(offscreen, green, red);
+      FillRect(offscreen, white, red);
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);

@@ -58,6 +58,16 @@ static long DaysLeft(std::time_t now, std::time_t target) {
   return diff_seconds / (24 * 3600);
 }
 
+void FillRect(rgb_matrix::FrameCanvas* c,
+              int x, int y, int w, int h,
+              const Color& color) {
+  for (int yy = y; yy < y + h; ++yy) {
+    for (int xx = x; xx < x + w; ++xx) {
+      c->SetPixel(xx, yy, color.r, color.g, color.b);
+    }
+  }
+}
+
 int main(int argc, char *argv[]) {
   std::signal(SIGINT, InterruptHandler);
   std::signal(SIGTERM, InterruptHandler);
@@ -111,14 +121,4 @@ int main(int argc, char *argv[]) {
   offscreen->Clear();
   delete matrix;
   return 0;
-}
-
-void FillRect(rgb_matrix::FrameCanvas* c,
-              int x, int y, int w, int h,
-              const Color& color) {
-  for (int yy = y; yy < y + h; ++yy) {
-    for (int xx = x; xx < x + w; ++xx) {
-      c->SetPixel(xx, yy, color);
-    }
-  }
 }

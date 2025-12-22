@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
   const Color green(0, 255, 0);
   const Color blue(0, 0, 255);
 
-  const int x_text = 8;
+  const int x_text = 6;
   const int y_text = 20;
 
   bool state = false;
@@ -155,10 +155,10 @@ int main(int argc, char *argv[]) {
 
     if (state) {
       FillRect(offscreen, red, white);
-      rgb_matrix::DrawText(offscreen, big_font, x_text, y_text, white, nullptr, "God Jul!");
+      rgb_matrix::DrawText(offscreen, font, x_text, y_text, white, nullptr, "God Jul!");
     } else {
       FillRect(offscreen, white, red);
-      rgb_matrix::DrawText(offscreen, big_font, x_text, y_text, red, nullptr, "God Jul!");
+      rgb_matrix::DrawText(offscreen, font, x_text, y_text, red, nullptr, "God Jul!");
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);

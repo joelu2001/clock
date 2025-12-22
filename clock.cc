@@ -58,34 +58,29 @@ static long DaysLeft(std::time_t now, std::time_t target) {
   return diff_seconds / (24 * 3600);
 }
 
-void FillRect(rgb_matrix::FrameCanvas* c,
-              const Color& color_a, const Color& color_b) {
-  Line(c, 0, 0, 63, 0, true, false, color_a, color_b)
-}
-
 void Line(rgb_matrix::FrameCanvas* c,
               int x1, int y1, int x2, int y2, bool alt, bool vert,
               const Color& color_a, const Color& color_b) {
   if (alt) {
-    bool next = true
+    bool next = true;
     if (vert) {
       for (int yy = y1; yy < y2; ++yy) {
         if (next) {
           c->SetPixel(x1, yy, color_a.r, color_a.g, color_a.b);
-          next = false
+          next = false;
         } else {
           c->SetPixel(x1, yy, color_b.r, color_b.g, color_b.b);
-          next = true
+          next = true;
         }
       }
     } else {
       for (int xx = x1; xx < x2; ++xx) {
         if (next) {
           c->SetPixel(xx, y1, color_a.r, color_a.g, color_a.b);
-          next = false
+          next = false;
         } else {
           c->SetPixel(xx, y1, color_b.r, color_b.g, color_b.b);
-          next = true
+          next = true;
         }
       }
     }
@@ -100,6 +95,11 @@ void Line(rgb_matrix::FrameCanvas* c,
       }
     }
   }
+}
+
+void FillRect(rgb_matrix::FrameCanvas* c,
+              const Color& color_a, const Color& color_b) {
+  Line(c, 0, 0, 63, 0, true, false, color_a, color_b);
 }
 
 int main(int argc, char *argv[]) {

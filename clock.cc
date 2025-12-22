@@ -131,6 +131,9 @@ int main(int argc, char *argv[]) {
   const Color green(0, 255, 0);
   const Color blue(0, 0, 255);
 
+  const int x_text = 5
+  const int y_text = 3
+
   bool state = false;
   auto last_switch = std::chrono::steady_clock::now();
 
@@ -147,8 +150,10 @@ int main(int argc, char *argv[]) {
 
     if (state) {
       FillRect(offscreen, red, white);
+      rgb_matrix::DrawText(offscreen, small_font, x_text, y_text, white, nullptr, "God Jul!");
     } else {
       FillRect(offscreen, white, red);
+      rgb_matrix::DrawText(offscreen, small_font, x_text, y_text, red, nullptr, "God Jul!");
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);

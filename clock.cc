@@ -103,8 +103,82 @@ void FillRect(rgb_matrix::FrameCanvas* c,
   Line(c, 0, 1, 0, 31, true, true, color_b, color_a); // left
   Line(c, 0, 31, 63, 31, true, false, color_b, color_a); // bottom
   Line(c, 63, 1, 63, 32, true, true, color_a, color_b); // right
-
 }
+
+void setPixelHelper(rgb_matrix::FrameCanvas* c, const Color& color, int x, int y, int xx, int yy) {
+  c->SetPixel(x+xx, y+yy, color.r, color.g, color.b);
+}
+
+void SnowMan(rgb_matrix::FrameCanvas* c, int x, int y, int ver,
+              const Color& white, const Color& grey, const Color& brown, const Color& red, const Color& orange) {
+      setPixelHelper(c, grey, x, y, 4, 0);
+      setPixelHelper(c, white, x, y, 5, 0);
+      setPixelHelper(c, white, x, y, 6, 0);
+      setPixelHelper(c, grey, x, y, 7, 0);
+      setPixelHelper(c, grey, x, y, 3, 1);
+      setPixelHelper(c, white, x, y, 4, 1);
+      setPixelHelper(c, white, x, y, 5, 1);
+      setPixelHelper(c, white, x, y, 7, 1);
+      setPixelHelper(c, white, x, y, 8, 1);
+      setPixelHelper(c, white, x, y, 3, 2);
+      setPixelHelper(c, white, x, y, 3, 2);
+      setPixelHelper(c, white, x, y, 4, 2);
+      setPixelHelper(c, white, x, y, 5, 2);
+      setPixelHelper(c, white, x, y, 6, 2);
+      setPixelHelper(c, white, x, y, 7, 2);
+      setPixelHelper(c, white, x, y, 8, 2);
+      setPixelHelper(c, white, x, y, 4, 3);
+      setPixelHelper(c, white, x, y, 5, 3);
+      setPixelHelper(c, white, x, y, 7, 3);
+      setPixelHelper(c, brown, x, y, 8, 3);
+      setPixelHelper(c, red, x, y, 3, 4);
+      setPixelHelper(c, red, x, y, 4, 4);
+      setPixelHelper(c, red, x, y, 5, 4);
+      setPixelHelper(c, red, x, y, 6, 4);
+      setPixelHelper(c, red, x, y, 7, 4);
+      setPixelHelper(c, white, x, y, 4, 5);
+      setPixelHelper(c, white, x, y, 5, 5);
+      setPixelHelper(c, white, x, y, 6, 5);
+      setPixelHelper(c, white, x, y, 7, 5);
+      setPixelHelper(c, white, x, y, 4, 6);
+      setPixelHelper(c, white, x, y, 5, 6);
+      setPixelHelper(c, orange, x, y, 6, 6);
+      setPixelHelper(c, orange, x, y, 7, 6);
+      setPixelHelper(c, orange, x, y, 8, 6);
+      setPixelHelper(c, white, x, y, 4, 7);
+      setPixelHelper(c, white, x, y, 6, 7);
+      setPixelHelper(c, white, x, y, 8, 7);
+      setPixelHelper(c, white, x, y, 5, 8);
+      setPixelHelper(c, white, x, y, 6, 8);
+      setPixelHelper(c, white, x, y, 7, 8);
+      setPixelHelper(c, red, x, y, 6, 10);
+    if (ver == 0) {
+      setPixelHelper(c, brown, x, y, 1, 1);
+      setPixelHelper(c, brown, x, y, 2, 2);
+      setPixelHelper(c, brown, x, y, 10, 1);
+      setPixelHelper(c, brown, x, y, 9, 2);
+      setPixelHelper(c, brown, x, y, 8, 3);
+      setPixelHelper(c, red, x, y, 2, 3);
+      setPixelHelper(c, red, x, y, 3, 3);
+      setPixelHelper(c, red, x, y, 2, 5);
+      setPixelHelper(c, red, x, y, 3, 9);
+      setPixelHelper(c, red, x, y, 4, 10);
+    } else {
+      setPixelHelper(c, brown, x, y, 3, 3);
+      setPixelHelper(c, brown, x, y, 2, 4);
+      setPixelHelper(c, brown, x, y, 1, 5);
+      setPixelHelper(c, brown, x, y, 0, 6);
+      setPixelHelper(c, brown, x, y, 9, 4);
+      setPixelHelper(c, brown, x, y, 10, 5);
+      setPixelHelper(c, brown, x, y, 11, 6);
+      setPixelHelper(c, red, x, y, 3, 5);
+      setPixelHelper(c, red, x, y, 2, 5);
+      setPixelHelper(c, red, x, y, 2, 6);
+      setPixelHelper(c, red, x, y, 1, 7);
+      setPixelHelper(c, red, x, y, 6, 10);
+      setPixelHelper(c, red, x, y, 7, 10);
+    }
+  }
 
 int main(int argc, char *argv[]) {
   std::signal(SIGINT, InterruptHandler);
@@ -131,6 +205,9 @@ int main(int argc, char *argv[]) {
   const Color red(255, 0, 0);
   const Color green(0, 255, 0);
   const Color blue(0, 0, 255);
+  const Color orange(255, 165, 0);
+  const Color grey(128, 128, 128);
+  const Color brown(139, 69, 19);
 
   const int x_text = 5;
   const int y_text = 20;
@@ -151,9 +228,11 @@ int main(int argc, char *argv[]) {
 
     if (state) {
       FillRect(offscreen, red, white);
+      SnowMan(offscreen, 31, 32, 0, white, grey, brown, red, orange)
       rgb_matrix::DrawText(offscreen, font, x_text, y_text, white, nullptr, "God Jul!");
     } else {
       FillRect(offscreen, white, red);
+      SnowMan(offscreen, 31, 32, 1, white, grey, brown, red, orange)
       rgb_matrix::DrawText(offscreen, font, x_text, y_text, red, nullptr, "God Jul!");
     }
 

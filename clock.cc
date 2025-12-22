@@ -151,7 +151,7 @@ void SnowMan(rgb_matrix::FrameCanvas* c, int x, int y, int ver,
       setPixelHelper(c, white, x, y, 5, 8);
       setPixelHelper(c, white, x, y, 6, 8);
       setPixelHelper(c, white, x, y, 7, 8);
-      setPixelHelper(c, red, x, y, 6, 10);
+      //setPixelHelper(c, red, x, y, 6, 10);
     if (ver == 0) {
       setPixelHelper(c, brown, x, y, 1, 1);
       setPixelHelper(c, brown, x, y, 2, 2);

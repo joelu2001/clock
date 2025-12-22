@@ -98,9 +98,9 @@ int main(int argc, char *argv[]) {
     offscreen->Clear();
 
     if (state) {
-      rgb_matrix::DrawBox(offscreen, 0, 0, 63, 31, Color(255, 0, 0));
+      FillRect(offscreen, 0, 0, 63, 31, Color(255, 0, 0));
     } else {
-      rgb_matrix::DrawBox(offscreen, 0, 0, 63, 31, Color(0, 0, 255));
+      FillRect(offscreen, 0, 0, 63, 31, Color(0, 0, 255));
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);
@@ -111,4 +111,14 @@ int main(int argc, char *argv[]) {
   offscreen->Clear();
   delete matrix;
   return 0;
+}
+
+void FillRect(rgb_matrix::FrameCanvas* c,
+              int x, int y, int w, int h,
+              const Color& color) {
+  for (int yy = y; yy < y + h; ++yy) {
+    for (int xx = x; xx < x + w; ++xx) {
+      c->SetPixel(xx, yy, color);
+    }
+  }
 }

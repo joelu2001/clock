@@ -106,7 +106,7 @@ void FillRect(rgb_matrix::FrameCanvas* c,
 }
 
 void setPixelHelper(rgb_matrix::FrameCanvas* c, const Color& color, int x, int y, int xx, int yy) {
-  c->SetPixel(x+xx, y+yy, color.r, color.g, color.b);
+  c->SetPixel(x+xx, y-yy, color.r, color.g, color.b);
 }
 
 void SnowMan(rgb_matrix::FrameCanvas* c, int x, int y, int ver,

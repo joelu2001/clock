@@ -106,6 +106,7 @@ int main(int argc, char *argv[]) {
     }
 
     offscreen->Clear();
+    offscreen->SetBrightness(30);
 
     if (state) {
       FillRect(offscreen, 0, 0, 63, 31, Color(255, 0, 0));

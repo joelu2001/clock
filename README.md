@@ -80,7 +80,7 @@ timedatectl
 cat /proc/driver/rtc
 ```
 
-# Automatic start-up
+# Automatic clock start-up
 
 ```bash
 sudo nano /etc/systemd/system/led-clock.service

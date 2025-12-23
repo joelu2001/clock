@@ -1,6 +1,6 @@
 # Build montage
 
-[![Video title](https://www.youtube.com/watch?v=81yYpLKbdik/0.jpg)](https://www.youtube.com/watch?v=81yYpLKbdik)
+[![Building SOB_CLOCK](https://img.youtube.com/vi/81yYpLKbdik/maxresdefault.jpg)](https://www.youtube.com/watch?v=81yYpLKbdik)
 
 # Info on how to use the repository
 

@@ -228,8 +228,6 @@ void drawFlakes(rgb_matrix::FrameCanvas* c, std::vector<int>& flakes1, std::vect
     int y = flakes2[i];
     setPixelHelper(c, color, x, y, 0, 0);
   }
-  doStep(flakes1, flakes2);
-  checkBottom(flakes1, flakes2);
 }
 
 int main(int argc, char *argv[]) {
@@ -283,8 +281,9 @@ int main(int argc, char *argv[]) {
       last_switch = now;
     }
 
-    if (now - last_switch_flakes >= std::chrono::milliseconds(1000)) {
-      drawFlakes(offscreen, flakesX, flakesY, white);
+    if (now - last_switch_flakes >= std::chrono::milliseconds(200)) {
+      doStep(flakesX, flakesY);
+      checkBottom(flakesX, flakesY);
       last_switch_flakes = now;
     }
 
@@ -297,6 +296,8 @@ int main(int argc, char *argv[]) {
       SnowMan(offscreen, 23, 25, 1, white, grey, brown, red, orange);
       rgb_matrix::DrawText(offscreen, font, x_text, y_text, red, nullptr, "God Jul!");
     }
+
+    drawFlakes(offscreen, flakesX, flakesY, white);
 
     offscreen = matrix->SwapOnVSync(offscreen);
     std::this_thread::sleep_for(std::chrono::milliseconds(20));

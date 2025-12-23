@@ -227,9 +227,9 @@ void drawFlakes(rgb_matrix::FrameCanvas* c, std::vector<int>& flakes1, std::vect
     int x = flakes1[i];
     int y = flakes2[i];
     setPixelHelper(c, color, x, y, 0, 0);
-    doStep(flakes1, flakes2);
-    checkBottom(flakes1, flakes2);
   }
+  doStep(flakes1, flakes2);
+  checkBottom(flakes1, flakes2);
 }
 
 int main(int argc, char *argv[]) {
@@ -272,6 +272,10 @@ int main(int argc, char *argv[]) {
   auto last_switch_flakes = std::chrono::steady_clock::now();
 
   while (running) {
+
+    offscreen->Clear();
+    offscreen->SetBrightness(30);
+
     auto now = std::chrono::steady_clock::now();
 
     if (now - last_switch >= std::chrono::seconds(1)) {
@@ -283,9 +287,6 @@ int main(int argc, char *argv[]) {
       drawFlakes(offscreen, flakesX, flakesY, white);
       last_switch_flakes = now;
     }
-
-    offscreen->Clear();
-    offscreen->SetBrightness(30);
 
     if (state) {
       FillRect(offscreen, red, white);

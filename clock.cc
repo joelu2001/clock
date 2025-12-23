@@ -193,12 +193,13 @@ std::uniform_int_distribution<int> distYSD(0, 1);
 void initFlakes(std::vector<int>& flakes1,
                 std::vector<int>& flakes2) {
   const int nbrFlakes = 20;
-  std::vector<int> flakes1(nbrFlakes, 0);
-  std::vector<int> flakes2(nbrFlakes, 0);
 
-  for(int i = 0; i < nbrFlakes; ++i) {
-    int x = distX(gen);
-    flakes1[i] = x;
+  flakes1.assign(nbrFlakes, 0);  
+  flakes2.assign(nbrFlakes, 0);
+
+  for (int i = 0; i < nbrFlakes; ++i) {
+    flakes1[i] = distX(gen);
+    flakes2[i] = 0;            
   }
 }
 

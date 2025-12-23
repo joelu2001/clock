@@ -192,7 +192,7 @@ std::uniform_int_distribution<int> distYSD(0, 1);
 
 void initFlakes(std::vector<int>& flakes1,
                 std::vector<int>& flakes2) {
-  const int nbrFlakes = 20;
+  const int nbrFlakes = 1;
 
   flakes1.assign(nbrFlakes, 0);  
   flakes2.assign(nbrFlakes, 0);

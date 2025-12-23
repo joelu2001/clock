@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <sstream>
 #include <thread>
+#include <vector>
+#include <random>
 
 #include "led-matrix.h"
 #include "graphics.h"
@@ -182,6 +184,50 @@ void SnowMan(rgb_matrix::FrameCanvas* c, int x, int y, int ver,
     }
   }
 
+const int nbrFlakes = 20;
+std::vector<int> flakesX(nbrFlakes, 0);
+std::vector<int> flakesY(nbrFlakes, 0);
+
+std::random_device rd;             
+std::mt19937 gen(rd());        
+std::uniform_int_distribution<int> distX(0, 64);
+std::uniform_int_distribution<int> distXLR(-1, 1);
+std::uniform_int_distribution<int> distYSD(0, 1);
+
+for(int i = 0; i < nbrFlakes; ++i) {
+  int x = distX(gen);
+  flakesX[i] = x;
+}
+
+void checkBottom(std::vector<int>& flakesX, std::vector<int>& flakesY) {
+  for(int i = 0; i < flakesY.size(); ++i) {
+    if (flakesY[i] > 31) {
+      flakesY[i] = 0;
+      int x = distX(gen);
+      flakesX[i] = x;
+    }
+  }
+}
+
+void doStep(std::vector<int>& flakesX, std::vector<int>& flakesY) {
+  for(int i = 0; i < flakesX.size(); ++i) {
+    int x = distXLR(gen);
+    int y = distXSD(gen);
+    flakesX[i] = flakesX[i] + x;
+    flakesY[i] = flakesY[i] + y;
+  }
+}
+
+void drawFlakes(rgb_matrix::FrameCanvas* c, std::vector<int>& flakesX, std::vector<int>& flakesY) {
+  for(int i = 0; i < flakesX.size(); ++i) {
+    int x = flakesX[i];
+    int y = flakesY[i];
+    setPixelHelper(c, white, x, y, 0, 0);
+    doStep(flakesX, flakesY);
+    checkBottom(flakesX, flakesY);
+  }
+}
+
 int main(int argc, char *argv[]) {
   std::signal(SIGINT, InterruptHandler);
   std::signal(SIGTERM, InterruptHandler);
@@ -217,6 +263,7 @@ int main(int argc, char *argv[]) {
 
   bool state = false;
   auto last_switch = std::chrono::steady_clock::now();
+  auto last_switch_flakes = std::chrono::steady_clock::now();
 
   while (running) {
     auto now = std::chrono::steady_clock::now();
@@ -224,6 +271,11 @@ int main(int argc, char *argv[]) {
     if (now - last_switch >= std::chrono::seconds(1)) {
       state = !state;
       last_switch = now;
+    }
+
+    if (now - last_switch_flakes >= std::chrono::seconds(0.2)) {
+      drawFlakes(offscreen, flakesX, flakesY);
+      last_switch_flakes = now;
     }
 
     offscreen->Clear();

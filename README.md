@@ -10,22 +10,24 @@ make -j1
 cd examples-api-use
 sudo ./demo -D0 --led-no-hardware-pulse --led-cols=64 --led-rows=32
 
-# Set up my code
+## Set up my code
 g++ -O2 -std=c++17 clock.cc -o clock -Iinclude -Llib -lrgbmatrix -lpthread
 sudo ./clock -D0 --led-no-hardware-pulse --led-cols=64 --led-rows=32
 
-## RTC
+# RTC
 
-# Run these first time only
+## Run these first time only
 
 sudo modprobe rtc-pcf8563
 sudo python3 -c "open('/sys/bus/i2c/devices/i2c-1/new_device','w').write('pcf8563 0x51\n')"
 ls /dev/rtc*
 
-# Make presistant
+## Make presistant
 
 sudo nano /etc/systemd/system/pcf8563-bind.service
-# add
+
+## add
+
 [Unit]
 Description=Bind PCF8563 RTC on I2C-1 address 0x51
 DefaultDependencies=no
@@ -40,20 +42,21 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 
-# Enable and reboot
+## Enable and reboot
+
 sudo systemctl daemon-reload
 sudo systemctl enable --now pcf8563-bind.service
 sudo reboot
 
-# Verify
+## Verify
 timedatectl
 cat /proc/driver/rtc
 
-## Automatic start up
+# Automatic start up
 
 sudo nano /etc/systemd/system/led-clock.service
 
-# add this
+## add this
 
 [Unit]
 Description=RGB Matrix LED Clock
@@ -71,6 +74,7 @@ RestartSec=2
 [Install]
 WantedBy=multi-user.target
 
-# To make persistent
+## To make persistent
+
 sudo systemctl daemon-reload
 sudo systemctl enable led-clock.service

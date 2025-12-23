@@ -1,7 +1,11 @@
-# Current IP
-joel@10.69.185.14
+# Info on how to use the repository
 
-# Image is Raspberry Pi OS Lite (32-bit) (479 MB)
+Firstly:
+
+- User and IP is: joel@10.69.185.14
+- Image is Raspberry Pi OS Lite (32-bit) (479 MB)
+
+Below are the commands to set up my clock code and the RTC I2C.
 
 ## Panel APIs
 
@@ -26,6 +30,8 @@ sudo ./clock -D0 --led-no-hardware-pulse --led-cols=64 --led-rows=32
 ```
 
 # RTC
+
+Enable I2C in the configs.
 
 ## Run these first time only
 

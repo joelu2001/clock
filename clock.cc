@@ -190,44 +190,44 @@ std::uniform_int_distribution<int> distX(0, 64);
 std::uniform_int_distribution<int> distXLR(-1, 1);
 std::uniform_int_distribution<int> distYSD(0, 1);
 
-void initFlakes(std::vector<int>& flakesX,
-                std::vector<int>& flakesY) {
+void initFlakes(std::vector<int>& flakes1,
+                std::vector<int>& flakes2) {
   const int nbrFlakes = 20;
-  std::vector<int> flakesX(nbrFlakes, 0);
-  std::vector<int> flakesY(nbrFlakes, 0);
+  std::vector<int> flakes1(nbrFlakes, 0);
+  std::vector<int> flakes2(nbrFlakes, 0);
 
   for(int i = 0; i < nbrFlakes; ++i) {
     int x = distX(gen);
-    flakesX[i] = x;
+    flakes1[i] = x;
   }
 }
 
-void checkBottom(std::vector<int>& flakesX, std::vector<int>& flakesY) {
-  for(int i = 0; i < flakesY.size(); ++i) {
-    if (flakesY[i] > 31) {
-      flakesY[i] = 0;
+void checkBottom(std::vector<int>& flakes1, std::vector<int>& flakes2) {
+  for(int i = 0; i < flakes2.size(); ++i) {
+    if (flakes2[i] > 31) {
+      flakes2[i] = 0;
       int x = distX(gen);
-      flakesX[i] = x;
+      flakes1[i] = x;
     }
   }
 }
 
-void doStep(std::vector<int>& flakesX, std::vector<int>& flakesY) {
-  for(int i = 0; i < flakesX.size(); ++i) {
+void doStep(std::vector<int>& flakes1, std::vector<int>& flakes2) {
+  for(int i = 0; i < flakes1.size(); ++i) {
     int x = distXLR(gen);
-    int y = distXSD(gen);
-    flakesX[i] = flakesX[i] + x;
-    flakesY[i] = flakesY[i] + y;
+    int y = distYSD(gen);
+    flakes1[i] = flakes1[i] + x;
+    flakes2[i] = flakes2[i] + y;
   }
 }
 
-void drawFlakes(rgb_matrix::FrameCanvas* c, std::vector<int>& flakesX, std::vector<int>& flakesY, const Color& color) {
-  for(int i = 0; i < flakesX.size(); ++i) {
-    int x = flakesX[i];
-    int y = flakesY[i];
+void drawFlakes(rgb_matrix::FrameCanvas* c, std::vector<int>& flakes1, std::vector<int>& flakes2, const Color& color) {
+  for(int i = 0; i < flakes1.size(); ++i) {
+    int x = flakes1[i];
+    int y = flakes2[i];
     setPixelHelper(c, color, x, y, 0, 0);
-    doStep(flakesX, flakesY);
-    checkBottom(flakesX, flakesY);
+    doStep(flakes1, flakes2);
+    checkBottom(flakes1, flakes2);
   }
 }
 

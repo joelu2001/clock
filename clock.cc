@@ -283,7 +283,7 @@ int main(int argc, char *argv[]) {
       last_switch = now;
     }
 
-    if (now - last_switch_flakes >= std::chrono::milliseconds(200)) {
+    if (now - last_switch_flakes >= std::chrono::milliseconds(1000)) {
       drawFlakes(offscreen, flakesX, flakesY, white);
       last_switch_flakes = now;
     }

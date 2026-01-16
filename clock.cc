@@ -108,8 +108,16 @@ int main(int argc, char *argv[]) {
     oss << std::setw(4) << std::setfill('0') << days_left;
     const std::string days_text = oss.str();
 
+    //Code for centering text
+
+    int text_width = 0;
+    for (char c : days_text) {
+        text_width += biggest_font.CharacterWidth(c);
+    }
+    int canvas_width = canvas->width();
+
     const int x_text = 6;
-    const int x_days = 2;
+    int x_days = (canvas_width - text_width) / 2;
     const int y_days = 26;
 
     //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");

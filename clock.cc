@@ -89,9 +89,7 @@ int main(int argc, char *argv[]) {
   const Color orange(255, 0,   165);
   const Color grey  (128, 128, 128);
   const Color brown (139, 19,  69);
-
-  long days_left = 100; //= DaysLeft(now, target);
-
+ 
   while (running) {
     offscreen->Clear();
     offscreen->SetBrightness(60);
@@ -107,15 +105,13 @@ int main(int argc, char *argv[]) {
     std::time_t now = std::time(nullptr);
     std::time_t target = MakeTargetTime(target_year, target_day, target_hour);
 
-    //long days_left = DaysLeft(now, target);
+    long days_left = DaysLeft(now, target);
 
     std::ostringstream oss;
     oss << std::setw(4) << std::setfill('0') << days_left;
     const std::string days_text = oss.str();
-    days_left = days_left - 1;
 
     //Code for centering text
-
     int text_width = 0;
     for (char c : days_text) {
         text_width += biggest_font.CharacterWidth(c);

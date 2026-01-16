@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <sstream>
 #include <thread>
+#include <iomanip>
 
 #include "led-matrix.h"
 #include "graphics.h"
@@ -104,7 +105,7 @@ int main(int argc, char *argv[]) {
     long days_left = DaysLeft(now, target);
 
     std::ostringstream oss;
-    oss << days_left;
+    oss << std::setw(4) << std::setfill('0') << days_left;
     const std::string days_text = oss.str();
 
     const int x_text = 6;

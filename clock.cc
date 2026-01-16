@@ -109,7 +109,7 @@ int main(int argc, char *argv[]) {
     const std::string days_text = oss.str();
 
     const int x_text = 6;
-    const int x_days = 0;
+    const int x_days = 2;
     const int y_days = 26;
 
     //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
 
     offscreen = matrix->SwapOnVSync(offscreen);
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   }
 
   offscreen->Clear();

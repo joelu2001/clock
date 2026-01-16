@@ -4,8 +4,6 @@
 #include <iomanip>
 #include <sstream>
 #include <thread>
-#include <vector>
-#include <random>
 
 #include "led-matrix.h"
 #include "graphics.h"
@@ -60,176 +58,6 @@ static long DaysLeft(std::time_t now, std::time_t target) {
   return diff_seconds / (24 * 3600);
 }
 
-void Line(rgb_matrix::FrameCanvas* c,
-              int x1, int y1, int x2, int y2, bool alt, bool vert,
-              const Color& color_a, const Color& color_b) {
-  if (alt) {
-    bool next = true;
-    if (vert) {
-      for (int yy = y1; yy < y2; ++yy) {
-        if (next) {
-          c->SetPixel(x1, yy, color_a.r, color_a.g, color_a.b);
-          next = false;
-        } else {
-          c->SetPixel(x1, yy, color_b.r, color_b.g, color_b.b);
-          next = true;
-        }
-      }
-    } else {
-      for (int xx = x1; xx < x2; ++xx) {
-        if (next) {
-          c->SetPixel(xx, y1, color_a.r, color_a.g, color_a.b);
-          next = false;
-        } else {
-          c->SetPixel(xx, y1, color_b.r, color_b.g, color_b.b);
-          next = true;
-        }
-      }
-    }
-  } else {
-    if (vert) {
-      for (int yy = y1; yy < y2; ++yy) {
-        c->SetPixel(x1, yy, color_a.r, color_a.g, color_a.b);
-      }
-    } else {
-      for (int xx = x1; xx < x2; ++xx) {
-        c->SetPixel(xx, y1, color_a.r, color_a.g, color_a.b);
-      }
-    }
-  }
-}
-
-void FillRect(rgb_matrix::FrameCanvas* c,
-              const Color& color_a, const Color& color_b) {
-  Line(c, 0, 0, 64, 0, true, false, color_a, color_b); // top
-  Line(c, 0, 1, 0, 31, true, true, color_b, color_a); // left
-  Line(c, 0, 31, 63, 31, true, false, color_b, color_a); // bottom
-  Line(c, 63, 1, 63, 32, true, true, color_a, color_b); // right
-}
-
-void setPixelHelper(rgb_matrix::FrameCanvas* c, const Color& color, int x, int y, int xx, int yy) {
-  c->SetPixel(x+xx, y-yy, color.r, color.g, color.b);
-}
-
-void SnowMan(rgb_matrix::FrameCanvas* c, int x, int y, int ver,
-              const Color& white, const Color& grey, const Color& brown, const Color& red, const Color& orange) {
-      setPixelHelper(c, grey, x, y, 4, 0);
-      setPixelHelper(c, white, x, y, 5, 0);
-      setPixelHelper(c, white, x, y, 6, 0);
-      setPixelHelper(c, grey, x, y, 7, 0);
-      setPixelHelper(c, grey, x, y, 3, 1);
-      setPixelHelper(c, white, x, y, 4, 1);
-      setPixelHelper(c, white, x, y, 5, 1);
-      setPixelHelper(c, white, x, y, 7, 1);
-      setPixelHelper(c, white, x, y, 8, 1);
-      setPixelHelper(c, white, x, y, 3, 2);
-      setPixelHelper(c, white, x, y, 3, 2);
-      setPixelHelper(c, white, x, y, 4, 2);
-      setPixelHelper(c, white, x, y, 5, 2);
-      setPixelHelper(c, white, x, y, 6, 2);
-      setPixelHelper(c, white, x, y, 7, 2);
-      setPixelHelper(c, white, x, y, 8, 2);
-      setPixelHelper(c, white, x, y, 4, 3);
-      setPixelHelper(c, white, x, y, 5, 3);
-      setPixelHelper(c, white, x, y, 7, 3);
-      setPixelHelper(c, brown, x, y, 8, 3);
-      setPixelHelper(c, red, x, y, 3, 4);
-      setPixelHelper(c, red, x, y, 4, 4);
-      setPixelHelper(c, red, x, y, 5, 4);
-      setPixelHelper(c, red, x, y, 6, 4);
-      setPixelHelper(c, red, x, y, 7, 4);
-      setPixelHelper(c, white, x, y, 4, 5);
-      setPixelHelper(c, white, x, y, 5, 5);
-      setPixelHelper(c, white, x, y, 6, 5);
-      setPixelHelper(c, white, x, y, 7, 5);
-      setPixelHelper(c, white, x, y, 4, 6);
-      setPixelHelper(c, white, x, y, 5, 6);
-      setPixelHelper(c, orange, x, y, 6, 6);
-      setPixelHelper(c, orange, x, y, 7, 6);
-      setPixelHelper(c, orange, x, y, 8, 6);
-      setPixelHelper(c, white, x, y, 4, 7);
-      setPixelHelper(c, white, x, y, 6, 7);
-      setPixelHelper(c, white, x, y, 8, 7);
-      setPixelHelper(c, white, x, y, 5, 8);
-      setPixelHelper(c, white, x, y, 6, 8);
-      setPixelHelper(c, white, x, y, 7, 8);
-      //setPixelHelper(c, red, x, y, 6, 10);
-    if (ver == 0) {
-      setPixelHelper(c, brown, x, y, 1, 1);
-      setPixelHelper(c, brown, x, y, 2, 2);
-      setPixelHelper(c, brown, x, y, 10, 1);
-      setPixelHelper(c, brown, x, y, 9, 2);
-      setPixelHelper(c, brown, x, y, 8, 3);
-      setPixelHelper(c, red, x, y, 2, 3);
-      setPixelHelper(c, red, x, y, 3, 3);
-      setPixelHelper(c, red, x, y, 2, 5);
-      setPixelHelper(c, red, x, y, 3, 9);
-      setPixelHelper(c, red, x, y, 4, 10);
-      setPixelHelper(c, red, x, y, 5, 10);
-    } else {
-      setPixelHelper(c, brown, x, y, 3, 3);
-      setPixelHelper(c, brown, x, y, 2, 4);
-      setPixelHelper(c, brown, x, y, 1, 5);
-      setPixelHelper(c, brown, x, y, 0, 6);
-      setPixelHelper(c, brown, x, y, 9, 4);
-      setPixelHelper(c, brown, x, y, 10, 5);
-      setPixelHelper(c, brown, x, y, 11, 6);
-      setPixelHelper(c, red, x, y, 3, 5);
-      setPixelHelper(c, red, x, y, 2, 5);
-      setPixelHelper(c, red, x, y, 2, 6);
-      setPixelHelper(c, red, x, y, 1, 7);
-      setPixelHelper(c, red, x, y, 5, 10);
-      setPixelHelper(c, red, x, y, 6, 10);
-      setPixelHelper(c, red, x, y, 7, 10);
-    }
-  }
-
-std::random_device rd;             
-std::mt19937 gen(rd());        
-std::uniform_int_distribution<int> distX(0, 64);
-std::uniform_int_distribution<int> distXLR(-1, 1);
-std::uniform_int_distribution<int> distYSD(0, 1);
-
-void initFlakes(std::vector<int>& flakes1,
-                std::vector<int>& flakes2) {
-  const int nbrFlakes = 20;
-
-  flakes1.assign(nbrFlakes, 0);  
-  flakes2.assign(nbrFlakes, 0);
-
-  for (int i = 0; i < nbrFlakes; ++i) {
-    flakes1[i] = distX(gen);
-    flakes2[i] = 0;            
-  }
-}
-
-void checkBottom(std::vector<int>& flakes1, std::vector<int>& flakes2) {
-  for(int i = 0; i < flakes2.size(); ++i) {
-    if (flakes2[i] > 31) {
-      flakes2[i] = 0;
-      int x = distX(gen);
-      flakes1[i] = x;
-    }
-  }
-}
-
-void doStep(std::vector<int>& flakes1, std::vector<int>& flakes2) {
-  for(int i = 0; i < flakes1.size(); ++i) {
-    int x = distXLR(gen);
-    int y = distYSD(gen);
-    flakes1[i] = flakes1[i] + x;
-    flakes2[i] = flakes2[i] + y;
-  }
-}
-
-void drawFlakes(rgb_matrix::FrameCanvas* c, std::vector<int>& flakes1, std::vector<int>& flakes2, const Color& color) {
-  for(int i = 0; i < flakes1.size(); ++i) {
-    int x = flakes1[i];
-    int y = flakes2[i];
-    setPixelHelper(c, color, x, y, 0, 0);
-  }
-}
-
 int main(int argc, char *argv[]) {
   std::signal(SIGINT, InterruptHandler);
   std::signal(SIGTERM, InterruptHandler);
@@ -250,59 +78,39 @@ int main(int argc, char *argv[]) {
   if (!small_font.LoadFont("fonts/6x10.bdf")) return 3;
   if (!big_font.LoadFont("fonts/10x20.bdf")) return 4;
 
-  const Color white (255, 255, 255);
-  const Color black (0,   0,   0); 
-  const Color red   (255, 0,   0); 
-  const Color green (0,   0,   255);  
-  const Color blue  (0,   255, 0);    
-  const Color orange(255, 0,   165);
-  const Color grey  (128, 128, 128);
-  const Color brown (139, 19,  69);
-
-  const int x_text = 5;
-  const int y_text = 20;
-
-  std::vector<int> flakesX, flakesY;
-  initFlakes(flakesX, flakesY);
-
-  bool state = false;
-  auto last_switch = std::chrono::steady_clock::now();
-  auto last_switch_flakes = std::chrono::steady_clock::now();
+  const Color white(255, 255, 255);
+  const Color black(0, 0, 0);
+  const Color red(255, 0, 0);
+  const Color green(0, 255, 0);
+  const Color blue(0, 0, 255);
 
   while (running) {
-
     offscreen->Clear();
-    offscreen->SetBrightness(30);
+    offscreen->SetBrightness(40);
 
-    auto now = std::chrono::steady_clock::now();
+    const int target_year = 2030;
+    const int target_day = 258;
+    const int target_hour = 0;
 
-    if (now - last_switch >= std::chrono::seconds(1)) {
-      state = !state;
-      last_switch = now;
-    }
+    std::time_t now = std::time(nullptr);
+    std::time_t target = MakeTargetTime(target_year, target_day, target_hour);
 
-    if (now - last_switch_flakes >= std::chrono::milliseconds(200)) {
-      doStep(flakesX, flakesY);
-      checkBottom(flakesX, flakesY);
-      last_switch_flakes = now;
-    }
+    long days_left = DaysLeft(now, target);
 
-    if (state) {
-      FillRect(offscreen, red, white);
-      SnowMan(offscreen, 23, 30, 0, white, grey, brown, red, orange);
-      rgb_matrix::DrawText(offscreen, font, x_text, y_text, white, nullptr, "God Jul!");
-    } else {
-      FillRect(offscreen, white, red);
-      SnowMan(offscreen, 23, 25, 1, white, grey, brown, red, orange);
-      rgb_matrix::DrawText(offscreen, font, x_text, y_text, red, nullptr, "God Jul!");
-    }
+    std::ostringstream oss;
+    oss << days_left;
+    const std::string days_text = oss.str();
 
-    drawFlakes(offscreen, flakesX, flakesY, white);
+    const int x_text = 6;
+    const int x_days = 12;
+
+    //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
+    rgb_matrix::DrawText(offscreen, big_font,   x_days, 20, white, nullptr, days_text.c_str());
 
     offscreen = matrix->SwapOnVSync(offscreen);
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
-  }
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+  }
 
   offscreen->Clear();
   delete matrix;

@@ -4,10 +4,7 @@
 
 # Info on how to use the repository
 
-Firstly:
-
-- User and IP is: `joel@10.69.185.14`
-- Image is Raspberry Pi OS Lite (32-bit) (479 MB)
+Firstly, the image is Raspberry Pi OS Lite (32-bit) (479 MB)
 
 Below are the commands to set up my clock code and the RTC I2C.
 

@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     const std::string days_text = oss.str();
 
     const int x_text = 6;
-    const int x_days = 4;
+    const int x_days = 2;
     const int y_days = 26;
 
     //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");

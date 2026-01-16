@@ -74,9 +74,11 @@ int main(int argc, char *argv[]) {
   Font font;
   Font small_font;
   Font big_font;
+  Font biggest_font;
   if (!font.LoadFont("fonts/7x13.bdf")) return 2;
   if (!small_font.LoadFont("fonts/6x10.bdf")) return 3;
   if (!big_font.LoadFont("fonts/10x20.bdf")) return 4;
+  if (!biggest_font.LoadFont("fonts/texgyre-27.bdf")) return 5;
 
   const Color white(255, 255, 255);
   const Color black(0, 0, 0);
@@ -105,7 +107,7 @@ int main(int argc, char *argv[]) {
     const int x_days = 12;
 
     //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
-    rgb_matrix::DrawText(offscreen, big_font,   x_days, 22, white, nullptr, days_text.c_str());
+    rgb_matrix::DrawText(offscreen, biggest_font,   x_days, 22, white, nullptr, days_text.c_str());
 
     offscreen = matrix->SwapOnVSync(offscreen);
 

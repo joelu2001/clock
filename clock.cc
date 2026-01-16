@@ -104,10 +104,11 @@ int main(int argc, char *argv[]) {
     const std::string days_text = oss.str();
 
     const int x_text = 6;
-    const int x_days = 12;
+    const int x_days = 4;
+    const int y_days = 26;
 
     //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
-    rgb_matrix::DrawText(offscreen, biggest_font,   x_days, 22, white, nullptr, days_text.c_str());
+    rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
 
     offscreen = matrix->SwapOnVSync(offscreen);
 

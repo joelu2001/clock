@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
     const int x_days = 12;
 
     //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
-    rgb_matrix::DrawText(offscreen, big_font,   x_days, 23, white, nullptr, days_text.c_str());
+    rgb_matrix::DrawText(offscreen, big_font,   x_days, 22, white, nullptr, days_text.c_str());
 
     offscreen = matrix->SwapOnVSync(offscreen);
 

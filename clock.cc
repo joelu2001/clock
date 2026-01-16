@@ -94,12 +94,8 @@ int main(int argc, char *argv[]) {
     offscreen->Clear();
     offscreen->SetBrightness(60);
 
-    //const int target_year = 2030;
-    //const int target_day = 258;
-    //const int target_hour = 0;
-
-    const int target_year = 2027;
-    const int target_day = 25;
+    const int target_year = 2030;
+    const int target_day = 258;
     const int target_hour = 0;
 
     std::time_t now = std::time(nullptr);

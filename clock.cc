@@ -128,8 +128,12 @@ int main(int argc, char *argv[]) {
     offscreen->Clear();
     offscreen->SetBrightness(60);
 
-    const int start_year = 2025;
-    const int start_day = 258; 
+    //const int start_year = 2025;
+    //const int start_day = 258; 
+    //const int start_hour = 0;
+
+    const int start_year = 2026;
+    const int start_day = 10; 
     const int start_hour = 0;
 
     const int target_year = 2030;
@@ -159,21 +163,22 @@ int main(int argc, char *argv[]) {
     const int bar_y = offscreen->height() - bar_height - 1;  
     const int bar_width = offscreen->width(); 
 
+    // Draw filled portion with gradient
+    int filled_width = static_cast<int>(progress * bar_width);
     for (int y = bar_y; y < bar_y + bar_height; y++) {
-        for (int x = 0; x < bar_width; x++) {
-            offscreen->SetPixel(x, y, grey.r, grey.g, grey.b);
+        for (int x = 0; x < filled_width; x++) {
+            float local_progress = (float)x / (float)bar_width;
+            int r = 255 * local_progress;
+            int g = 0;
+            int b = 255 * (1 - local_progress);
+            offscreen->SetPixel(x, y, r, g, b);
         }
     }
 
-    std::vector<Color> bar_colors(filled_width);
-    for (int x = 0; x < filled_width; x++) {
-        float local_progress = (float)x / (float)bar_width;
-        bar_colors[x] = Color(255 * local_progress, 0, 255 * (1 - local_progress));
-    }
-
+    // Draw grey background for unfilled portion only
     for (int y = bar_y; y < bar_y + bar_height; y++) {
-        for (int x = 0; x < filled_width; x++) {
-            offscreen->SetPixel(x, y, bar_colors[x].r, bar_colors[x].g, bar_colors[x].b);
+        for (int x = filled_width; x < bar_width; x++) {
+            offscreen->SetPixel(x, y, grey.r, grey.g, grey.b);
         }
     }
 

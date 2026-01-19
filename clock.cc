@@ -43,6 +43,16 @@ static std::string NowYYYYDDDHH() {
   return oss.str();
 }
 
+static bool IsSpecificDate(int target_month, int target_day) {
+  std::time_t t = std::time(nullptr);
+  std::tm tm = *std::localtime(&t);
+  
+  int current_month = tm.tm_mon + 1; 
+  int current_day = tm.tm_mday;      
+  
+  return (current_month == target_month && current_day == target_day);
+}
+
 static double CalculateProgress(std::time_t start, std::time_t now, std::time_t target) {
   if (now <= start) return 0.0;
   if (now >= target) return 1.0;
@@ -119,7 +129,7 @@ int main(int argc, char *argv[]) {
     offscreen->SetBrightness(60);
 
     const int start_year = 2025;
-    const int start_day = 1; 
+    const int start_day = 258; 
     const int start_hour = 0;
 
     const int target_year = 2030;
@@ -145,7 +155,7 @@ int main(int argc, char *argv[]) {
     }
     int canvas_width = offscreen->width();
 
-    const int bar_height = 4;           
+    const int bar_height = 3;           
     const int bar_y = offscreen->height() - bar_height - 1;  
     const int bar_width = offscreen->width(); 
 
@@ -158,7 +168,9 @@ int main(int argc, char *argv[]) {
     int filled_width = static_cast<int>(progress * bar_width);
     for (int y = bar_y; y < bar_y + bar_height; y++) {
         for (int x = 0; x < filled_width; x++) {
-            offscreen->SetPixel(x, y, blue.r, blue.g, blue.b);
+            float progress = (float)x / (float)bar_width;
+            Color color (255 * progress,   0,   255 * (1 - progress));
+            offscreen->SetPixel(x, y, color.r, color.g, color.b);
         }
     }
 
@@ -166,8 +178,19 @@ int main(int argc, char *argv[]) {
     int x_days = (canvas_width - text_width) / 2;
     const int y_days = 26;
 
-    if (birthday) {
+    std::string birthday_text = "Glad Födelsedag!";
 
+    int birthday_width = 0;
+    for (char c : birthday_text) {
+        birthday_width += big_font.CharacterWidth(c);
+    }
+    int x_birthday = (canvas_width - birthday_width) / 2;
+    const int y_birthday = 20;
+
+    birthday = IsSpecificDate(9, 9);
+    
+    if (birthday) {
+      rgb_matrix::DrawText(offscreen, big_font, x_birthday, y_birthday, red, nullptr, birthday_text.c_str());
     } else {
       rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
     }

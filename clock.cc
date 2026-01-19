@@ -218,8 +218,8 @@ int main(int argc, char *argv[]) {
             line_width += font.CharacterWidth(c);
         }
         int x_line = (canvas_width - line_width) / 2;
-        const int y_line = 26;
-        rgb_matrix::DrawText(offscreen, font, x_line, y_line, white, nullptr, line.c_str());
+        const int y_line = 20;
+        rgb_matrix::DrawText(offscreen, big_font, x_line, y_line, white, nullptr, line.c_str());
     } else {
       rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
     }

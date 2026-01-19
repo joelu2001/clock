@@ -16,6 +16,19 @@ using rgb_matrix::Color;
 static volatile bool running = true;
 static void InterruptHandler(int) { running = false; }
 
+static std::string NowHHMMSS() {
+  std::time_t t = std::time(nullptr);
+  std::tm tm = *std::localtime(&t);
+
+  std::ostringstream oss;
+  oss << std::setfill('0')
+      << std::setw(2) << tm.tm_hour << ":"
+      << std::setw(2) << tm.tm_min << ":"
+      << std::setw(2) << tm.tm_sec;
+
+  return oss.str();
+}
+
 static std::string NowYYYYDDDHH() {
   std::time_t t = std::time(nullptr);
   std::tm tm = *std::localtime(&t);

@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
  
   while (running) {
     offscreen->Clear();
-    offscreen->SetBrightness(60);
+    offscreen->SetBrightness(70);
 
     const int start_year = 2025;
     const int start_day = 258; 
@@ -137,7 +137,7 @@ int main(int argc, char *argv[]) {
     //const int target_hour = 0;
 
     const int target_year = 2026;
-    const int target_day = 100;
+    const int target_day = 30;
     const int target_hour = 0;
 
     std::time_t now = std::time(nullptr);

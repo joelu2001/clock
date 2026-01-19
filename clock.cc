@@ -200,7 +200,7 @@ int main(int argc, char *argv[]) {
         for (char c : line2) {
             line2_width += font.CharacterWidth(c);
         }
-        int x_line2 = (canvas_width - line2_width) / 2 + 9;
+        int x_line2 = (canvas_width - line2_width) / 2 + 11;
         
         const int y_line1 = 13;
         const int y_line2 = 26;

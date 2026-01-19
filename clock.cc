@@ -132,12 +132,8 @@ int main(int argc, char *argv[]) {
     const int start_day = 258; 
     const int start_hour = 0;
 
-    //const int target_year = 2030;
-    //const int target_day = 258;
-    //const int target_hour = 0;
-
-    const int target_year = 2026;
-    const int target_day = 30;
+    const int target_year = 2030;
+    const int target_day = 258;
     const int target_hour = 0;
 
     std::time_t now = std::time(nullptr);
@@ -188,7 +184,7 @@ int main(int argc, char *argv[]) {
     int x_birthday = (canvas_width - birthday_width) / 2;
     const int y_birthday = 20;
 
-    birthday = IsSpecificDate(9, 9);
+    birthday = IsSpecificDate(1, 19);
     
     if (birthday) {
       rgb_matrix::DrawText(offscreen, big_font, x_birthday, y_birthday, red, nullptr, birthday_text.c_str());

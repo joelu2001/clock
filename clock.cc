@@ -132,9 +132,9 @@ int main(int argc, char *argv[]) {
     const int start_day = 258; 
     const int start_hour = 0;
 
-    const int target_year = 2030;
-    const int target_day = 258;
-    const int target_hour = 0;
+    //const int target_year = 2030;
+    //const int target_day = 258;
+    //const int target_hour = 0;
     
     const int target_year = 2025;
     const int target_day = 19;

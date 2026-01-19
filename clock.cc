@@ -135,6 +135,10 @@ int main(int argc, char *argv[]) {
     const int target_year = 2030;
     const int target_day = 258;
     const int target_hour = 0;
+    
+    const int target_year = 2025;
+    const int target_day = 19;
+    const int target_hour = 0;
 
     std::time_t now = std::time(nullptr);
     std::time_t target = MakeTargetTime(target_year, target_day, target_hour);

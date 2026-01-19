@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
     }
     int canvas_width = offscreen->width();
 
-    const int bar_height = 3;           
+    const int bar_height = 2;           
     const int bar_y = offscreen->height() - bar_height - 1;  
     const int bar_width = offscreen->width(); 
 
@@ -165,12 +165,15 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    int filled_width = static_cast<int>(progress * bar_width);
+    std::vector<Color> bar_colors(filled_width);
+    for (int x = 0; x < filled_width; x++) {
+        float local_progress = (float)x / (float)bar_width;
+        bar_colors[x] = Color(255 * local_progress, 0, 255 * (1 - local_progress));
+    }
+
     for (int y = bar_y; y < bar_y + bar_height; y++) {
         for (int x = 0; x < filled_width; x++) {
-            float progress = (float)x / (float)bar_width;
-            Color color (255 * progress,   0,   255 * (1 - progress));
-            offscreen->SetPixel(x, y, color.r, color.g, color.b);
+            offscreen->SetPixel(x, y, bar_colors[x].r, bar_colors[x].g, bar_colors[x].b);
         }
     }
 

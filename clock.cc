@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
     int x_birthday = (canvas_width - birthday_width) / 2;
     const int y_birthday = 20;
 
-    birthday = IsSpecificDate(1, 19);
+    birthday = IsSpecificDate(9, 9);
     
     if (birthday) {
         std::string line1 = "Glad";
@@ -207,8 +207,17 @@ int main(int argc, char *argv[]) {
         
         rgb_matrix::DrawText(offscreen, font, x_line1, y_line1, white, nullptr, line1.c_str());
         rgb_matrix::DrawText(offscreen, small_font, x_line2, y_line2, white, nullptr, line2.c_str());
+    } else if (days_left <= 0) {
+      std::string line = "THE END";
+      int line_width = 0;
+        for (char c : line) {
+            line_width += font.CharacterWidth(c);
+        }
+        int x_line = (canvas_width - line_width) / 2;
+        const int y_line = 26;
+        rgb_matrix::DrawText(offscreen, font, x_line, y_line, white, nullptr, line.c_str());
     } else {
-        rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
+      rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
     }
 
     offscreen = matrix->SwapOnVSync(offscreen);

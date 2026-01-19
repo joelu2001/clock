@@ -118,8 +118,23 @@ int main(int argc, char *argv[]) {
     int x_days = (canvas_width - text_width) / 2;
     const int y_days = 26;
 
-    //rgb_matrix::DrawText(offscreen, small_font, x_text, 10, white, nullptr, "Days left");
-    rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
+    //rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
+
+    //
+    // Get current time string
+    std::string time_text = NowHHMMSS();
+
+    // Calculate centering for time (optional)
+    int time_width = 0;
+    for (char c : time_text) {
+        time_width += font.CharacterWidth(c);
+    }
+    int x_time = (canvas_width - time_width) / 2;
+    const int y_time = 13;  // Adjust this value to position it above or below the countdown
+
+    // Draw the time
+    rgb_matrix::DrawText(offscreen, font, x_time, y_time, green, nullptr, time_text.c_str());
+    //
 
     offscreen = matrix->SwapOnVSync(offscreen);
 

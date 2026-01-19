@@ -205,8 +205,8 @@ int main(int argc, char *argv[]) {
         const int y_line1 = 13;
         const int y_line2 = 26;
         
-        rgb_matrix::DrawText(offscreen, font, x_line1, y_line1, red, nullptr, line1.c_str());
-        rgb_matrix::DrawText(offscreen, small_font, x_line2, y_line2, red, nullptr, line2.c_str());
+        rgb_matrix::DrawText(offscreen, font, x_line1, y_line1, white, nullptr, line1.c_str());
+        rgb_matrix::DrawText(offscreen, small_font, x_line2, y_line2, white, nullptr, line2.c_str());
     } else {
         rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
     }

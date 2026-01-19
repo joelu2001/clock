@@ -14,6 +14,7 @@ using rgb_matrix::Font;
 using rgb_matrix::Color;
 
 static volatile bool running = true;
+static volatile bool birthday = false;
 static void InterruptHandler(int) { running = false; }
 
 static std::string NowHHMMSS() {
@@ -40,6 +41,16 @@ static std::string NowYYYYDDDHH() {
       << std::setw(2) << tm.tm_hour;
 
   return oss.str();
+}
+
+static double CalculateProgress(std::time_t start, std::time_t now, std::time_t target) {
+  if (now <= start) return 0.0;
+  if (now >= target) return 1.0;
+  
+  double total_duration = difftime(target, start);
+  double elapsed = difftime(now, start);
+  
+  return elapsed / total_duration;
 }
 
 static std::time_t MakeTargetTime(
@@ -107,9 +118,16 @@ int main(int argc, char *argv[]) {
     offscreen->Clear();
     offscreen->SetBrightness(60);
 
+    const int start_year = 2025;
+    const int start_day = 1; 
+    const int start_hour = 0;
+
     const int target_year = 2030;
     const int target_day = 258;
     const int target_hour = 0;
+
+    std::time_t start = MakeTargetTime(start_year, start_day, start_hour);
+    double progress = CalculateProgress(start, now, target);
 
     std::time_t now = std::time(nullptr);
     std::time_t target = MakeTargetTime(target_year, target_day, target_hour);
@@ -127,27 +145,32 @@ int main(int argc, char *argv[]) {
     }
     int canvas_width = offscreen->width();
 
+    const int bar_height = 4;           
+    const int bar_y = offscreen->height() - bar_height - 1;  
+    const int bar_width = offscreen->width(); 
+
+    for (int y = bar_y; y < bar_y + bar_height; y++) {
+        for (int x = 0; x < bar_width; x++) {
+            offscreen->SetPixel(x, y, grey.r, grey.g, grey.b);
+        }
+    }
+
+    int filled_width = static_cast<int>(progress * bar_width);
+    for (int y = bar_y; y < bar_y + bar_height; y++) {
+        for (int x = 0; x < filled_width; x++) {
+            offscreen->SetPixel(x, y, blue.r, blue.g, blue.b);
+        }
+    }
+
     const int x_text = 6;
     int x_days = (canvas_width - text_width) / 2;
     const int y_days = 26;
 
-    //rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
+    if (birthday) {
 
-    //
-    // Get current time string
-    std::string time_text = NowHHMMSS();
-
-    // Calculate centering for time (optional)
-    int time_width = 0;
-    for (char c : time_text) {
-        time_width += font.CharacterWidth(c);
+    } else {
+      rgb_matrix::DrawText(offscreen, biggest_font, x_days, y_days, white, nullptr, days_text.c_str());
     }
-    int x_time = (canvas_width - time_width) / 2;
-    const int y_time = 13;  // Adjust this value to position it above or below the countdown
-
-    // Draw the time
-    rgb_matrix::DrawText(offscreen, font, x_time, y_time, green, nullptr, time_text.c_str());
-    //
 
     offscreen = matrix->SwapOnVSync(offscreen);
 
